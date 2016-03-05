@@ -1,0 +1,72 @@
+# Random-Codes-for-Java-programming-First-Semester
+Here it is
+
+import java.util.Scanner;
+
+public class Lab_5 {
+
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		double userHours;
+		double userRate;
+		double basePay;
+		double overTimePay=0;
+		double netPay=0;
+		double totalPay=0;
+		double overTimeHours;
+		double taxAmount=0;
+
+		do{ //keeps looping till values are properly inputted
+			System.out.print("Enter the number of hours worked :   ");
+		userHours = input.nextDouble();
+
+		if(userHours<=0 || userHours>60){ //goes back to top if invalid
+			System.out.println("Invalid input: Enter a positive value and equal or under 60 hours");
+			System.out.println("");
+		}
+		else{
+			System.out.print("Enter the rate of pay :   ");
+			userRate = input.nextDouble();
+
+			if(userRate<=0 || userRate>1500){ //goes back to very beginning if invalid
+				System.out.println("Invalid input: Enter a positive value and equal or under 1500 rate of pay");
+				System.out.println("");
+			}
+			
+			else{
+
+
+				if(userHours>=37.5){ // Overtime Pay
+					basePay = userRate * 37.5;
+					overTimeHours = userHours - 37.5;
+					overTimePay = ((overTimeHours * userRate) * 1.5);
+					totalPay = basePay + overTimePay;
+				}
+				else{  //Not overtime Pay
+					basePay = userHours *userRate;
+					totalPay = basePay;
+				}
+
+				if(totalPay<1000){
+					taxAmount = 0;
+					netPay = totalPay;
+				}
+				else if(totalPay>=1000 && totalPay<=2000){
+					taxAmount=(totalPay *.20);
+					netPay = totalPay - taxAmount ;
+				}
+				else{
+					taxAmount = (totalPay *.30);
+					netPay = totalPay - taxAmount;
+				}
+
+				System.out.printf("\nBase pay is $ %.2f",basePay);
+				System.out.printf("\nOvertime pay is $ %.2f",overTimePay);
+				System.out.printf("\nTotal pay is $ %.2f",totalPay);
+				System.out.printf("\nTax deducted is $ %.2f",taxAmount);
+				System.out.printf("\nNet pay is $ %.2f",netPay);	
+			}
+		}
+	}while(netPay==0.0); // condition so loop keeps going
+	}
+}
